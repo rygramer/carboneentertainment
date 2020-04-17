@@ -1,4 +1,6 @@
-## Welcome to GitHub Pages
+# Carbone Entertainment Event Management Application
+
+## A case study describing the implementation of a custom Salesforce application
 
 You can use the [editor on GitHub](https://github.com/rygramer/carboneentertainment/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
