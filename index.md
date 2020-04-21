@@ -12,9 +12,9 @@ This case study will describe how I implemented the custom Salesforce applicatio
 2. Contracting Solution; and
 3. Problems Solved by the Application.
 
-# Data Structure
+## Data Structure
 
-## Objects
+### Objects
 
 As the Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_concepts.htm) states, “... objects represent database tables that contain your organization's information.” Our application uses the Account and Contact standard objects, and relies heavily on the following custom objects:
 
@@ -55,7 +55,7 @@ As the Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en
     *   Should the wardrobe inherit the corresponding value from the Event Service object? If no, what is the wardrobe?
     *   Should the arrival time inherit the corresponding value from the Event Service object? If no, what is the arrival time?
 
-## Schema
+### Schema
 
 For my visual readers as I know even I am a little dizzy from my object descriptions.
 
