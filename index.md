@@ -59,3 +59,5 @@ As the Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en
 
 For my visual readers as I know even I am a little dizzy from my object descriptions.
 
+![Schema](/img/schema.png)
+
