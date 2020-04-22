@@ -693,4 +693,4 @@ In an effort to improve the UX for Talent, we have created an easier to read Job
 
 [Force.com Portal Easy-to-Read Job Sheet »](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5)
 
-![Screenshot of the easy-to-read job sheet](/img/easy-to-ready-job-sheet.png)
+![Screenshot of the easy-to-read job sheet](/img/easy-to-read-job-sheet.png)
