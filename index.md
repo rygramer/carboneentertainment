@@ -1,6 +1,5 @@
 # Carbone Entertainment Event Management Application
 
-
 ## A case study describing the implementation of a custom Salesforce application
 
 [Carbone Entertainment](https://carboneentertainment.com/) is a talent agency that specializes in pairing you with the perfect artist, performer, and activity for your event. As a simple example, let’s say you are hosting your child’s birthday party and would like to hire the most amazing [Face Painter](https://carboneentertainment.com/service/face-painters/), Carbone connects you with that artist and handles the contracting, logistical coordination, and billing. Things get more complicated when the scale of the event increases to include many performers, a complicated venue, or an entire performance series across multiple days or months.
@@ -9,21 +8,15 @@ In order to streamline the business operation, I created a custom Salesforce app
 
 This case study will describe how I implemented the custom Salesforce application to improve our business by outlining the:
 
-
-
 1. Data Structure;
 2. Contracting Solution; and
 3. Problems Solved by the Application.
 
-
 ## Data Structure
-
 
 ### Objects
 
 The Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_concepts.htm) states, “... objects represent database tables that contain your organization's information.” In addition to using the Account and Contact standard objects, we have created the following custom objects:
-
-
 
 *   **Event** - this object stores important information relevant to each Event.
     *   Who is the client?
@@ -67,25 +60,17 @@ The Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en-us
     *   **Expense** - if we incur an additional expense related to an event (aside from payroll liabilities represented on Job Sheets), we create a record to track the cost, receipt, and memo. This allows us to better track gross profit per Event.
     *   **Check-in** - Similar to the Signed Contract object to track client signatures, the Check-in object tracks signed Job Sheets. The Check-in object comes in two varieties - before the event responses and after the event responses. In addition to receiving signatures before the event, we provide Talent the opportunity to ask any questions they may have or let us know how the event went. Reports are generated to track their responses.
 
-
 ### Schema
 
 ![Schema](/img/schema.png)
-
 
 ## Contracting Solution
 
 A critical feature required of the application is the ability to generate, send, and track contracts. We work with two different contractual documents - a contract for clients and a subcontract for talent. To support this solution, I have written a series of Visualforce Pages, Visualforce Email Templates, Apex Classes, and Unit Tests.
 
+### Contract PDF
 
-### Emailing the Contract
-
-After the contract has been prepared and internally reviewed, it is ready to be sent via email. When the custom checkbox field is selected, a custom formula field populates with a link to “Send Contract”.
-
-![Select the ‘ready for contract” checkbox in order to send the contract](/img/ready-for-contract.png)
-
-The link navigates to a custom Visualforce Page that allows the user to review the contract. The contract is a custom Visualforce Page rendered as a PDF.
-
+Our contracts and subcontracts are written as a Visualforce Page rendered as a PDF document. 
 
 ```
 <apex:page standardController="Event__c" title="{!Event__c.Name} : Preview Contract" showHeader="false" sidebar="false" standardStylesheets="false" renderAs="PDF" applyHtmlTag="false" applyBodyTag="false" lightningstylesheets="false">
@@ -536,9 +521,9 @@ The link navigates to a custom Visualforce Page that allows the user to review t
                                     <span class="number">3.<span class="ordered-list"><span class="underline">Payments.</span></span></span>
                                         <ol class="sub">
                                             <apex:outputText rendered="{!IF(Event__c.Are_we_expecting_a_deposit__c=TRUE,true,false)}">
-                                                <li><span class="underline">Deposit.</span> Within seven (7) days of the parties' signing of this Customer shall provide Carbone with a <apex:outputText rendered="{!IF(Event__c.CreatedDate>=DATETIMEVALUE('2020-3-28 00:00:00'),true,false)}"> non-refundable</apex:outputText> deposit in the amount set forth on the Summary Sheet. That amount will be applied to the total non-"Overtime" price listed on the Summary Sheet (the "Compensation"), plus any additional charges, as set forth below.</li>
+                                                <li><span class="underline">Deposit.</span> Within seven (7) days of the parties' signing of this Customer shall provide Carbone with a non-refundable deposit in the amount set forth on the Summary Sheet. That amount will be applied to the total non-"Overtime" price listed on the Summary Sheet (the "Compensation"), plus any additional charges, as set forth below.</li>
                                             </apex:outputText>
-                                            <li><span class="underline">Cancellation.</span> If Customer cancels the Event, a cancellation fee will be immediately due and payable to Carbone. Cancellation fees shall be in the following amounts:  (i) fifty percent (50.0%) of the Compensation if cancellation occurred <apex:outputText rendered="{!IF(Event__c.CreatedDate>=DATETIMEVALUE('2020-3-28 00:00:00'),true,false)}"> eight (8) days or more</apex:outputText><apex:outputText rendered="{!IF(Event__c.CreatedDate>=DATETIMEVALUE('2020-3-28 00:00:00'),false,true)}"> eight (8) to fourteen (14) days</apex:outputText> prior to the scheduled Event date, (ii) seventy-five percent (75.0%) of the Compensation if cancellation occurred four (4) to seven (7) days prior to the scheduled Event date, and (iii) one hundred percent (100.0%) of the Compensation if cancellation occurred within three (3) days of the scheduled Event date.</li>
+                                            <li><span class="underline">Cancellation.</span> If Customer cancels the Event, a cancellation fee will be immediately due and payable to Carbone. Cancellation fees shall be in the following amounts:  (i) fifty percent (50.0%) of the Compensation if cancellation occurred eight (8) days or more prior to the scheduled Event date, (ii) seventy-five percent (75.0%) of the Compensation if cancellation occurred four (4) to seven (7) days prior to the scheduled Event date, and (iii) one hundred percent (100.0%) of the Compensation if cancellation occurred within three (3) days of the scheduled Event date.</li>
                                             <li><span class="underline">Rescheduling.</span> Unless (i) Customer has provided Carbone with at least fourteen (14) days' notice of a need to reschedule the Event, (ii) the rescheduled Event is to occur within seven (7) days of the original date, and (iii) a rescheduling fee has not already been included in the Compensation, a rescheduling fee in the amount of fifty percent (50.0%) of the Compensation will be immediately due and payable to Carbone.</li>
                                             <li><b><span class="underline">OVERTIME.</span> THE SERVICES SHALL BE PERFORMED FOR THE NUMBER OF HOURS/MINUTES SET FORTH ON THE SUMMARY SHEET. CUSTOMER UNDERSTANDS THAT, IF HE/SHE/IT DESIRES FOR THE SERVICES CONTINUE BEYOND THE ALLOTTED DURATION, CUSTOMER WILL BE REQUIRED AT THAT TIME TO AUTHORIZE ACCRUAL OF ADDITIONAL CHARGES, THROUGH THE CESSATION OF SUCH SERVICES, AT THE INCREASED "OVERTIME" RATE SET FORTH ON THE SUMMARY SHEET.</b></li>
                                             <li><span class="underline">Payment of Balance; Expenses.</span> On or before the "Balance Due Date" set forth on the Summary Sheet, Customer shall remit to Carbone the unpaid balance of the Compensation, plus the full amount of Overtime, if any (collectively, the "Balance"). In addition, within {!Event__c.Actual_Payment_Terms__c} days of Carbone's presentation to Customer of an itemized statement of reasonable expenses incurred by Carbone in connection with, or related to, the performance of the Services, Customer shall remit full payment of such expenses.</li>
@@ -613,9 +598,13 @@ The link navigates to a custom Visualforce Page that allows the user to review t
 </apex:page>
 ```
 
+### Emailing the Contract
+
+After the contract has been prepared and internally reviewed, it is ready to be sent via email. When the custom checkbox field is selected, a custom formula field populates with a link to “Send Contract”.
+
+![Select the ‘ready for contract” checkbox in order to send the contract](/img/ready-for-contract.png)
 
 The contract is sent via a button that calls the following Apex Class. Once the contract has been sent, a copy of the PDF document is attached to the record and a custom field is updated with the timestamp of the action.
-
 
 ```
 public class SendContractEmail {
@@ -676,7 +665,32 @@ public class SendContractEmail {
 }
 ```
 
+### Email Template
 
 The recipient will receive an email that is designed with a Visualforce Email Template. This email template utilizes the [Foundation for Emails](https://get.foundation/emails.html) framework from ZURB.
 
- ![Contract email template](/img/contract-email-template.png)
+ ![Screenshot of the contract email template](/img/contract-email-template.png)
+
+### Signing the Contract
+
+Should the recipient choose to digitally sign the contract, they can easily do so via the Carbone Entertainment website. Each contract includes a custom link from which parameters are passed via URL to identify the specific event for which they are signing. These parameters are utilized by the website to render applicable information.
+
+[Sign the Contract Link Example »](https://carboneentertainment.com/sign-contract/?event_name=Case%20Study%20Example&first=Ryan&last=Mercer&email=ryan@carboneentertainment.com&event_id=a024N00000cCFuy&account_id=0016100000L7ISx&contact_id=0036100000Kwqqf&deposit=&amount=0)
+
+![Screenshot of the form on the Carbone website to digitally sign the contract](/img/sign-the-contract.png)
+
+### Force.com Portal
+
+In addition to emailing the PDF contract, we also provide access to the PDF contract via a Force.com Portal. From the “Sign the Contract” page on the Carbone website, individuals can click a button to “View the Services Agreement”.
+
+[Force.com Portal Contract Link Example »](https://carboneentertainment.secure.force.com/contract/?id=a024N00000cCFuy)
+
+### Additional Considerations for Subcontracts (or “Job Sheets”)
+
+In an effort to improve the UX for Talent, we have created an easier to read Job Sheet (in addition to the PDF subcontract).
+
+[Force.com Portal PDF Subcontract Link Example »](https://carboneentertainment.secure.force.com/jobsheet/job_sheet_PDF?id=a064N00000ehWD5)
+
+[Force.com Portal Easy-to-Read Job Sheet »](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5)
+
+![Screenshot of the easy-to-read job sheet](/img/easy-to-ready-job-sheet.png)
