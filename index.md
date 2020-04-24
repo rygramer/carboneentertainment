@@ -1,4 +1,4 @@
-[Carbone Entertainment](https://carboneentertainment.com/) is a talent agency that specializes in pairing you with the perfect artist, performer, and activity for your event. As a simple example, let’s say you are hosting your child’s birthday party and would like to hire the most amazing [Face Painter](https://carboneentertainment.com/service/face-painters/), Carbone connects you with that artist and handles the contracting, logistical coordination, and billing. Things get more complicated when the scale of the event increases to include many performers, a complicated venue, or an entire performance series across multiple days or months.
+[Carbone Entertainment](https://carboneentertainment.com/) is a talent agency that specializes in pairing you with the perfect artist, performer, and activity for your event. As a simple example, let’s say you are hosting your child’s birthday party and would like to hire the most amazing [Balloon Artist](https://carboneentertainment.com/service/balloon-twisters/), Carbone connects you with that artist and handles the contracting, logistical coordination, and billing. Things get more complicated when the scale of the event increases to include many performers, a complicated venue, or an entire performance series across multiple days or months.
 
 In order to streamline the business operation, I created a custom Salesforce application to manage the sales and fulfillment processes from end-to-end. The platform centralizes the talent database, contract management system, and customer engagement platform.
 
@@ -12,7 +12,10 @@ This case study will describe how I implemented the custom Salesforce applicatio
 
 ### Objects
 
-The Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_concepts.htm) states, “... objects represent database tables that contain your organization's information.” In addition to using the Account and Contact standard objects, we have created the following custom objects:
+> “... [O]bjects represent database tables that contain your organization's information.”
+> - Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_concepts.htm)
+
+In addition to using the Account and Contact standard objects, we have created the following custom objects:
 
 *   **Event** - this object stores important information relevant to each Event.
     *   Who is the client?
