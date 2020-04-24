@@ -708,7 +708,7 @@ We used to recommend the following insurance carriers for our talent:
 
 Then we met [Thimble](https://www.thimble.com/who-we-cover/events-and-entertainment-insurance?partnerid=P3LKYMAY6). Thimble offers hourly, daily, & monthly insurance policies for Events & Entertainment Professionals. Thimble also provides an API for partners to integrate into their system.
 
-For talent providing covered services, we are able to send them with a custom link to purchase a policy based on the parameters of our specific booking. Premiums are extremely low - usually around $5.00 - which eliminates the cost prohibitive nature of securing policies.
+For talent providing covered services, we are able to send them with a custom link to purchase a policy based on the parameters of our specific booking. Premiums are extremely low - usually around $5.00 - which eliminates the cost prohibitive nature of securing policies that we used to see. Once the talent has purchased a policy, Thimble automatically sends us a copy of the talent's Certificate of Insurance with the required language already included.
 
 Here is the script to call the API:
 
@@ -817,8 +817,11 @@ This script appears on a custom Visualforce page:
 And we can easily copy and paste to talent as a link in an email:
 
 >[Get Insured by Thimble for $5.00 »](https://app.thimble.com/partner-quote?quoteid=e231e5b8-1c91-4a67-98d7-48120f01a245&utm_source=webapp&utm_medium=open_api&utm_campaign=partner:P3LKYMAY6&utm_term=e231e5b8-1c91-4a67-98d7-48120f01a245)
->_[Thimble](https://www.thimble.com/events-and-entertainment-insurance?partnerid=P3LKYMAY6) offers hourly, daily, & monthly insurance policies for Events & Entertainment Professionals._
+
+>[Thimble](https://www.thimble.com/events-and-entertainment-insurance?partnerid=P3LKYMAY6) offers hourly, daily, & monthly insurance policies for Events & Entertainment Professionals.
 
 Or we can copy and paste a formatted version into a custom field on the Job Sheet object so that it appears on the “Easy-to-Read” version of the [Job Sheet](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5).
 
 ![UX friendly view of the insurance link provided to talent](/img/ux-friendly-insurance.png)
+
+*Please Note: any links examples to the Thimble app will expire on or around 9/1/2020.*
