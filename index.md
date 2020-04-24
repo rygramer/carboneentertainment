@@ -12,8 +12,7 @@ This case study will describe how I implemented the custom Salesforce applicatio
 
 ### Objects
 
-> “... [O]bjects represent database tables that contain your organization's information.”
-> Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_concepts.htm)
+> “... [O]bjects represent database tables that contain your organization's information.” *-- Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_concepts.htm)*
 
 In addition to using the Account and Contact standard objects, we have created the following custom objects:
 
