@@ -7,11 +7,6 @@ $header-bg-color-secondary: #98ca3c !default;
 
 // Text
 $section-headings-color: #54469c !default;
-$body-link-color: #98ca3c !default;
-$blockquote-text-color: #8e0b55 !default;
-
-// Code
-$code-bg-color: #55565a !default;
-$code-text-color: #e30044 !default;
+$body-link-color: #8e0b55 !default;
 
 @import "{{ site.theme }}";
