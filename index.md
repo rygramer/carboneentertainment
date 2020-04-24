@@ -692,3 +692,133 @@ In an effort to improve the UX for Talent, we have created an easier to read Job
 [Force.com Portal Easy-to-Read Job Sheet »](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5)
 
 ![Screenshot of the easy-to-read job sheet](/img/easy-to-read-job-sheet.png)
+
+## Problems Solved by the Application
+
+### Insurance
+
+Carbone Entertainment carries its own [General Liability Insurance Policy](https://www.dropbox.com/s/83a6d49ibqz9pl9/Carbone%20Entertainment%20COI%2011072020.PDF?dl=0). In addition to carrying our own policy, we require each of our talent to individually carry a policy as well. We have written about the reason for the requirement [here](https://carboneentertainment.com/performer-liability-insurance-easy-and-done/).
+
+We used to recommend the following insurance carriers for our talent:
+
+1. [Specialty Insurance Agency](https://www.specialtyinsuranceagency.com/insurance.html)
+2. [The National Association of Mobile Entertainers](https://nameentertainers.com/insurance/)
+3. [K&K Insurance](https://www.kandkinsurance.com/Entertainment/Pages/Entertainers-Performers.aspx)
+4. [Shoff Darby Insurance Agency](https://www.shoffdarby.com/entertainment-insurance/performers)
+
+Then we met [Thimble](https://www.thimble.com/who-we-cover/events-and-entertainment-insurance?partnerid=P3LKYMAY6). Thimble offers hourly, daily, & monthly insurance policies for Events & Entertainment Professionals. Thimble also provides an API for partners to integrate into their system.
+
+For talent providing covered services, we are able to send them with a custom link to purchase a policy based on the parameters of our specific booking. Premiums are extremely low - usually around $5.00 - which eliminates the cost prohibitive nature of securing policies.
+
+Here is the script to call the API:
+
+```
+var unixtimestamp = Math.round((new Date()).getTime() / 1000);
+var email_address = '{!Job_Sheet__c.Contact__r.Email}';
+var first_name = '{!Job_Sheet__c.Contact__r.FirstName}';
+var last_name = '{!Job_Sheet__c.Contact__r.LastName}';
+var business_name = '{!Job_Sheet__c.Insurance_Business_Name__c}';
+var marketplace_id = '';
+var activity_id = 'activity_id';
+var zipcode = '{!Job_Sheet__c.Account__r.BillingPostalCode}';
+var limit = 1000000;
+var crew = {!Job_Sheet__c.Additional_Crew__c};
+var coverage_start_date = '{!Job_Sheet__c.Insurance_Start_Date__c}';
+var coverage_start_time = '{!Job_Sheet__c.Insurance_Start_Time__c}';
+var coverage_end_date = '{!Job_Sheet__c.Insurance_End_Date__c}';
+var coverage_end_time = '{!Job_Sheet__c.Insurance_End_Time__c}';        
+
+var hash = CryptoJS.HmacSHA256("appkey/quote" + unixtimestamp + "{\"email_address\":\"" + email_address + "\",\"first_name\":\"" + first_name + "\",\"last_name\":\"" + last_name + "\",\"business_name\":\"" + business_name + "\",\"marketplace_id\":\"" + marketplace_id + "\",\"activity_id\":\"" + activity_id + "\",\"zipcode\":\"" + zipcode + "\",\"limit\":" + limit + ",\"crew\":" + crew + ",\"coverage_start_timestamp\":{\"date\":\"" + coverage_start_date + "\",\"time\":\"" + coverage_start_time + "\"},\"coverage_end_timestamp\":{\"date\":\"" + coverage_end_date + "\",\"time\":\"" + coverage_end_time + "\"}}", "appsecret");
+
+var request = new XMLHttpRequest();
+
+request.open('POST', 'https://open-api.thimble.com/quote');
+
+request.setRequestHeader('Content-Type', 'application/json');
+request.setRequestHeader('appkey', 'appkey');
+request.setRequestHeader('x-timestamp', unixtimestamp );
+request.setRequestHeader('x-signature', hash );
+
+var body = {
+    'email_address': email_address,
+    'first_name': first_name,
+    'last_name': last_name,
+    'business_name': business_name,
+    'marketplace_id': marketplace_id,
+    'activity_id' : activity_id,
+    'zipcode': zipcode,
+    'limit': limit,
+    'crew': crew,
+    'coverage_start_timestamp':{
+        'date': coverage_start_date,
+        'time': coverage_start_time,
+    },
+    'coverage_end_timestamp':{
+        'date': coverage_end_date,
+        'time': coverage_end_time,
+    },
+};
+
+request.send(JSON.stringify(body));
+
+request.onreadystatechange = function () {
+    if (this.readyState === 4) {
+        console.log('Status:', this.status);
+        console.log('Headers:', this.getAllResponseHeaders());
+        console.log('Body:', this.responseText);
+        var response = JSON.parse(this.responseText);
+        document.getElementById("error_message").innerHTML = response.error_message;
+        document.getElementById("quote_id").innerHTML = response.quote_summary.quote_id;
+        document.getElementById("quote_result").innerHTML = response.quote_summary.quote_result;
+        document.getElementById("limit").innerHTML = response.quote_summary.limit;
+        document.getElementById("state").innerHTML = response.quote_summary.state;
+        document.getElementById("zipcode").innerHTML = response.quote_summary.zipcode;
+        var timezone_check = 'America/New_York';
+        if(response.quote_summary.coverage_timezone == timezone_check){
+            document.getElementById("timezone_warning").innerHTML = "";
+        }else{
+            document.getElementById("timezone_warning").innerHTML = "TIMEZONE WARNING - talent is in a different timezone.";
+        }
+        document.getElementById("coverage_timezone").innerHTML = response.quote_summary.coverage_timezone;
+        document.getElementById("coverage_start_timestamp").innerHTML = response.quote_summary.coverage_start_timestamp;
+        document.getElementById("coverage_end_timestamp").innerHTML = response.quote_summary.coverage_end_timestamp;
+        document.getElementById("crew_size").innerHTML = response.quote_summary.crew_size;
+        document.getElementById("daily_rate_by_dollar").innerHTML = response.quote_summary.daily_rate_by_dollar;
+        document.getElementById("hourly_rate_by_dollar").innerHTML = response.quote_summary.hourly_rate_by_dollar;
+        document.getElementById("monthly_rate_by_dollar").innerHTML = response.quote_summary.monthly_rate_by_dollar;
+        document.getElementById("rate_by_dollar").innerHTML = response.quote_summary.rate_by_dollar;
+        document.getElementById("partner_code").innerHTML = response.quote_summary.partner_code;
+        document.getElementById("partner_plan_id").innerHTML = response.quote_summary.partner_plan_id;
+        document.getElementById("partner_plan_name").innerHTML = response.quote_summary.partner_plan_name;
+        document.getElementById("plan_id").src = response.quote_summary.plan_id;
+        document.getElementById("plan_name").src = response.quote_summary.plan_name;
+        document.getElementById("plan_icon").src = response.quote_summary.plan_icon;
+        document.getElementById("first_name").innerHTML = response.quote_summary.first_name;
+        document.getElementById("last_name").innerHTML = response.quote_summary.last_name;
+        document.getElementById("email_address").innerHTML = response.quote_summary.email_address;
+        document.getElementById("business_name").innerHTML = response.quote_summary.business_name;
+        document.getElementById("purchase_link").innerHTML = response.purchase_link;
+        // for PURCHASE Button
+        document.getElementById("purchase_link2").href = response.purchase_link;
+        // for RAW Copy
+        document.getElementById("purchase_link3").innerHTML = response.purchase_link;
+        document.getElementById("rate_by_dollar2").innerHTML = accounting.formatMoney(response.quote_summary.rate_by_dollar);
+        // for FORMATTED Cop
+        document.getElementById("purchase_link4").href = response.purchase_link;
+        document.getElementById("rate_by_dollar3").innerHTML = accounting.formatMoney(response.quote_summary.rate_by_dollar);
+    }
+};
+```
+
+This script appears on a custom Visualforce page:
+
+![Screenshot of the internal insurance quote page](/img/internal-insurance-quote-page.png)
+
+And we can easily copy and paste to talent as a link in an email:
+
+>[Get Insured by Thimble for $5.00 »](https://app.thimble.com/partner-quote?quoteid=e231e5b8-1c91-4a67-98d7-48120f01a245&utm_source=webapp&utm_medium=open_api&utm_campaign=partner:P3LKYMAY6&utm_term=e231e5b8-1c91-4a67-98d7-48120f01a245)
+>_[Thimble](https://www.thimble.com/events-and-entertainment-insurance?partnerid=P3LKYMAY6) offers hourly, daily, & monthly insurance policies for Events & Entertainment Professionals._
+
+Or we can copy and paste a formatted version into a custom field on the Job Sheet object so that it appears on the “Easy-to-Read” version of the [Job Sheet](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5).
+
+![UX friendly view of the insurance link provided to talent](/img/ux-friendly-insurance.png)
