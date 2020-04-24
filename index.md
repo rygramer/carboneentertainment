@@ -818,7 +818,7 @@ This script appears on a custom Visualforce page:
 And we can easily copy and paste a link to talent and send in an email:
 
 > [Get Insured by Thimble for $5.00 »](https://app.thimble.com/partner-quote?quoteid=e231e5b8-1c91-4a67-98d7-48120f01a245&utm_source=webapp&utm_medium=open_api&utm_campaign=partner:P3LKYMAY6&utm_term=e231e5b8-1c91-4a67-98d7-48120f01a245)
-> [Thimble](https://www.thimble.com/events-and-entertainment-insurance?partnerid=P3LKYMAY6) offers hourly, daily, & monthly insurance policies for Events & Entertainment Professionals.
+> [Thimble](https://www.thimble.com/events-and-entertainment-insurance?partnerid=P3LKYMAY6) offers hourly, daily, & monthly insurance policies for Events & Entertainment Professionals. Carbone Entertainment is not a licensed insurance agent. **YOU ARE SOLELY RESPONSIBLE FOR CONFIRMING YOUR ELIGIBILITY AND REVIEWING THE POLICY**.
 
 Or we can copy and paste a formatted version into a custom field on the Job Sheet object so that it appears on the “Easy-to-Read” version of the [Job Sheet](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5).
 
