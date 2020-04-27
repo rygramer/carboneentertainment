@@ -61,7 +61,7 @@ In addition to using the Account and Contact standard objects, we have created t
 
 ### Schema
 
-![Schema](/img/schema.png)
+![Schema](/assets/img/schema.png)
 
 ## Contracting Solution
 
@@ -601,7 +601,7 @@ Our contracts and subcontracts are written as a Visualforce Page rendered as a P
 
 After the contract has been prepared and internally reviewed, it is ready to be sent via email. When the custom checkbox field is selected, a custom formula field populates with a link to “Send Contract”.
 
-![Select the ‘ready for contract” checkbox in order to send the contract](/img/ready-for-contract.png)
+![Select the ‘ready for contract” checkbox in order to send the contract](/assets/img/ready-for-contract.png)
 
 The contract is sent via a button that calls the following Apex Class. Once the contract has been sent, a copy of the PDF document is attached to the record and a custom field is updated with the timestamp of the action.
 
@@ -668,7 +668,7 @@ public class SendContractEmail {
 
 The recipient will receive an email that is designed with a Visualforce Email Template. This email template utilizes the [Foundation for Emails](https://get.foundation/emails.html) framework from ZURB.
 
- ![Screenshot of the contract email template](/img/contract-email-template.png)
+ ![Screenshot of the contract email template](/assets/img/contract-email-template.png)
 
 ### Signing the Contract
 
@@ -676,7 +676,7 @@ Should the recipient choose to digitally sign the contract, they can easily do s
 
 [Sign the Contract Link Example »](https://carboneentertainment.com/sign-contract/?event_name=Case%20Study%20Example&first=Ryan&last=Mercer&email=ryan@carboneentertainment.com&event_id=a024N00000cCFuy&account_id=0016100000L7ISx&contact_id=0036100000Kwqqf&deposit=&amount=0)
 
-![Screenshot of the form on the Carbone website to digitally sign the contract](/img/sign-the-contract.png)
+![Screenshot of the form on the Carbone website to digitally sign the contract](/assets/img/sign-the-contract.png)
 
 ### Force.com Portal
 
@@ -692,7 +692,7 @@ In an effort to improve the UX for Talent, we have created an easier to read Job
 
 [Force.com Portal Easy-to-Read Job Sheet »](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5)
 
-![Screenshot of the easy-to-read job sheet](/img/easy-to-read-job-sheet.png)
+![Screenshot of the easy-to-read job sheet](/assets/img/easy-to-read-job-sheet.png)
 
 ## Problems Solved by the Application
 
@@ -813,7 +813,7 @@ request.onreadystatechange = function () {
 
 This script appears on a custom Visualforce page:
 
-![Screenshot of the internal insurance quote page](/img/internal-insurance-quote-page.png)
+![Screenshot of the internal insurance quote page](/assets/img/internal-insurance-quote-page.png)
 
 And we can easily copy and paste a link to talent and send in an email:
 
@@ -822,6 +822,6 @@ And we can easily copy and paste a link to talent and send in an email:
 
 Or we can copy and paste a formatted version into a custom field on the Job Sheet object so that it appears on the “Easy-to-Read” version of the [Job Sheet](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5).
 
-![UX friendly view of the insurance link provided to talent](/img/ux-friendly-insurance.png)
+![UX friendly view of the insurance link provided to talent](/assets/img/ux-friendly-insurance.png)
 
 *Please Note: any link examples to the Thimble app will expire on or around 9/1/2020.*
