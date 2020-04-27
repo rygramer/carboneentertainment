@@ -2,7 +2,7 @@
 
 In order to streamline the business operation, I created a custom Salesforce application to manage the sales and fulfillment processes from end-to-end. The platform centralizes the talent database, contract management system, and customer engagement platform.
 
-This case study will describe how I implemented the custom Salesforce application to improve our business by outlining the:
+This case study will describe how we implemented the custom Salesforce application to improve our business by outlining the:
 
 1. Data Structure;
 2. Contracting Solution; and
@@ -65,7 +65,7 @@ In addition to using the Account and Contact standard objects, we have created t
 
 ## Contracting Solution
 
-A critical feature required of the application is the ability to generate, send, and track contracts. We work with two different contractual documents - a contract for clients and a subcontract for talent. To support this solution, I have written a series of Visualforce Pages, Visualforce Email Templates, Apex Classes, and Unit Tests.
+A critical feature required of the application is the ability to generate, send, and track contracts. We work with two different contractual documents - a contract for clients and a subcontract for talent. To support this solution, we have written a series of Visualforce Pages, Visualforce Email Templates, Apex Classes, and Unit Tests.
 
 ### Contract PDF
 
@@ -825,3 +825,50 @@ Or we can copy and paste a formatted version into a custom field on the Job Shee
 ![UX friendly view of the insurance link provided to talent](/assets/img/ux-friendly-insurance.png)
 
 *Please Note: any link examples to the Thimble app will expire on or around 9/1/2020.*
+
+### Parking
+
+As noted on our contract with clients, any parking fees incurred must always be reimbursed. Because we often require final payment **before** the actual performance of the services, we had to develop a solution to calculate any parking fees at the point of booking.
+
+SpotHero allows users to find and book parking spaces. You can easily browse their parking inventory based on address and time. SpotHero allows us to pre-purchase parking for talent when an event is booked so that we can accurately bill the client on the final invoice for the parking fee incurred. Before our widespread use of SpotHero, our talent was forced to arrange for parking on their own and provide us with a receipt after the booking. This resulted in us having to bill clients after the fact and it was sometimes difficult to recoup the costs.
+
+In order to quickly and easily view SpotHero’s available inventory based on an event’s venue and start / end time, we leverage the [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/start) as well as [SpotHero Link Hacking](https://developers.spothero.com/guides/affiliate-links#customizeYourReferral). This allows us to create a custom link for each event to pre-purchase a parking spot - we do not have to manually enter search data on the SpotHero website; our system does the hard work automatically.
+
+A custom Visualforce page uses the following script:
+
+```
+$.getJSON( "https://maps.googleapis.com/maps/api/geocode/json?address={!Event__c.Venue__r.Prep_for_HTML_spothero__c}&key=appkey", function( data ) {
+  console.log(data);
+
+  var lat = data.results[0].geometry.location.lat;
+  var lng = data.results[0].geometry.location.lng;
+  var link = "https://spothero.com/search/?latitude=" + lat + "&longitude=" + lng + "&search_string={!Event__c.Venue__r.Prep_for_HTML_spothero__c}&starts={!Event__c.Start_Time_SpotHero__c}&ends={!Event__c.End_Time_SpotHero__c}";
+
+  $(".lat").append(lat);
+  $(".lng").append(lng);
+  $(".link").attr('href', link);
+}); 
+```
+
+The Google Geocoding API allows us to pass the venue’s latitude and longitude as URL parameters to SpotHero. We also had to create a few custom formula fields to prepare the data in a format acceptable for SpotHero:
+
+```
+Prep_for_HTML_spothero__c =
+  SUBSTITUTE( Venue_Street__c , " " , "+" )& "+" &
+  SUBSTITUTE( Venue_City__c , " " , "+" )& "+" &
+  SUBSTITUTE( Venue_State__c , " " , "+" )& "+" &
+  SUBSTITUTE( Venue_Zip__c , " " , "+" )
+
+Start_Time_SpotHero__c =
+  SUBSTITUTE( (SUBSTITUTE( LEFT( TEXT( Start_Time__c - Daylight_Savings_Calculation__c - 1/24), 16), " ", "T" )), ":", "%3a" )
+```
+
+The result is this Visualforce Page:
+
+![Screenshot of SpotHero parking page](/assets/img/parking.png)
+
+And here is the live SpotHero link based on the event created for this case study:
+
+[Purchase Parking on SpotHero »](https://spothero.com/search?latitude=38.8813404&longitude=-77.0280614&search_string=1100%20Maine%20Ave%20SW%20Washington%20DC%2020024)
+
+*Please Note: any link examples to the SpotHero will expire on or around 9/1/2020.*
