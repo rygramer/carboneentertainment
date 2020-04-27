@@ -4,9 +4,19 @@ In order to streamline the business operation, I created a custom Salesforce app
 
 This case study will describe how we implemented the custom Salesforce application to improve our business by outlining the:
 
-1. Data Structure;
-2. Contracting Solution; and
-3. Problems Solved by the Application.
+1. [Data Structure](#data-structure)
+  * [Objects](#objects)
+  * [Schema](#schema)
+2. [Contracting Solution](#contracting-solution)
+  * [Contract PDF](#contract-pdf)
+  * [Emailing the Contract](#emailing-the-contract)
+  * [Email Template](#email-template)
+  * [Signing the Contract](#signing-the-contract)
+  * [Force.com Portal](#forcecom-portal)
+  * [Additional Considerations for Subcontracts (or “Job Sheets”)](#additional-considerations-for-subcontracts--or--job-sheets--)
+3. [Problems Solved by the Application](#problems-solved-by-the-application)
+  * [Insurance](#insurance)
+  * [Parking](#parking)
 
 ## Data Structure
 
@@ -818,7 +828,6 @@ This script appears on a custom Visualforce page:
 And we can easily copy and paste a link to talent and send in an email:
 
 > [Get Insured by Thimble for $5.00 »](https://app.thimble.com/partner-quote?quoteid=e231e5b8-1c91-4a67-98d7-48120f01a245&utm_source=webapp&utm_medium=open_api&utm_campaign=partner:P3LKYMAY6&utm_term=e231e5b8-1c91-4a67-98d7-48120f01a245)
-> [Thimble](https://www.thimble.com/events-and-entertainment-insurance?partnerid=P3LKYMAY6) offers hourly, daily, & monthly insurance policies for Events & Entertainment Professionals. Carbone Entertainment is not a licensed insurance agent. **YOU ARE SOLELY RESPONSIBLE FOR CONFIRMING YOUR ELIGIBILITY AND REVIEWING THE POLICY**.
 
 Or we can copy and paste a formatted version into a custom field on the Job Sheet object so that it appears on the “Easy-to-Read” version of the [Job Sheet](https://carboneentertainment.secure.force.com/jobsheet/?id=a064N00000ehWD5).
 
@@ -863,12 +872,12 @@ Start_Time_SpotHero__c =
   SUBSTITUTE( (SUBSTITUTE( LEFT( TEXT( Start_Time__c - Daylight_Savings_Calculation__c - 1/24), 16), " ", "T" )), ":", "%3a" )
 ```
 
-The result is this Visualforce Page:
+Here is the Visualforce Page:
 
 ![Screenshot of SpotHero parking page](/assets/img/parking.png)
 
-And here is the live SpotHero link based on the event created for this case study:
+Here is the live SpotHero link based on the event created for this case study:
 
 [Purchase Parking on SpotHero »](https://spothero.com/search?latitude=38.8813404&longitude=-77.0280614&search_string=1100%20Maine%20Ave%20SW%20Washington%20DC%2020024)
 
-*Please Note: any link examples to the SpotHero will expire on or around 9/1/2020.*
+*Please Note: any link examples to SpotHero will expire on or around 9/1/2020.*
