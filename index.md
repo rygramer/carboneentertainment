@@ -921,3 +921,12 @@ Stop_Sending_Auto_Emails__c = FALSE
 ```
 
 Before developing these workflow rules, our staff had to manually distribute these reminders. The workflow rules have dramatically improved our accounts payable and accounts receivable processes.
+
+## Conclusion
+
+Additional customizations are in the pipeline:
+* We will be transitioning from workflow rules to process builder.
+* We will be building out the Force.con portals to provide clients and talent further access to their data.
+* We will be integrating the Salesforce application with [Xero](https://www.xero.com/us/) to further streamline our financial management process.
+
+If you would like to discuss how I can help your organization, please connect with me on [LinkedIn](https://www.linkedin.com/in/rygramer/) or send me an email.
