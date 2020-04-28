@@ -6,19 +6,20 @@ This case study will describe how we implemented the custom Salesforce applicati
 
 ## Table of Contents
 
-1. ### [Data Structure](#data-structure)
-  * #### [Objects](#objects)
-  * #### [Schema](#schema)
-2. ### [Contracting Solution](#contracting-solution)
-  * #### [Contract PDF](#contract-pdf)
-  * #### [Emailing the Contract](#emailing-the-contract)
-  * #### [Email Template](#email-template)
-  * #### [Signing the Contract](#signing-the-contract)
-  * #### [Force.com Portal](#forcecom-portal)
-  * #### [Additional Considerations for Subcontracts (or “Job Sheets”)](#additional-considerations-for-subcontracts--or--job-sheets--)
-3. ### [Problems Solved by the Application](#problems-solved-by-the-application)
-  * #### [Insurance](#insurance)
-  * #### [Parking](#parking)
+1. [Data Structure](#data-structure)
+  * [Objects](#objects)
+  * [Schema](#schema)
+2. [Contracting Solution](#contracting-solution)
+  * [Contract PDF](#contract-pdf)
+  * [Emailing the Contract](#emailing-the-contract)
+  * [Email Template](#email-template)
+  * [Signing the Contract](#signing-the-contract)
+  * [Force.com Portal](#forcecom-portal)
+  * [Additional Considerations for Subcontracts (or “Job Sheets”)](#additional-considerations-for-subcontracts--or--job-sheets--)
+3. [Problems Solved by the Application](#problems-solved-by-the-application)
+  * [Insurance](#insurance)
+  * [Parking](#parking)
+  * [Automation](#automation)
 
 ## Data Structure
 
@@ -882,3 +883,41 @@ Here is the live SpotHero link based on the event created for this case study:
 > [Purchase Parking on SpotHero »](https://spothero.com/search?latitude=38.8813404&longitude=-77.0280614&search_string=1100%20Maine%20Ave%20SW%20Washington%20DC%2020024)
 
 *Please Note: any link examples to SpotHero will expire on or around 9/1/2020.*
+
+### Automation
+
+The Salesforce application is intimately connected to the way we track accounts payable and accounts receivable. In addition to functioning as our CRM, the application also serves as our finance management tool. We use it to track payments made to us by our customers and payments made by us to our talent.
+
+To streamline the financial operation of the business we have developed a series of workflow rules that trigger field updates and email alerts. This allows us to automate much of our back office; with one click, we are able to initiate a series of events to accomplish a specific task.
+
+For example, the below workflow rule automatically sends an email reminder to a client when their final payment is due:
+
+```
+Stop_Sending_Auto_Emails__c = FALSE
+&&
+NOT(ISBLANK( Date_Time_Invoice_was_Sent__c ))
+&&
+Balance_Due__c > 1
+```
+
+The below workflow rule automatically send an email reminder to talent at the conclusion of an event to check to see how the event went:
+
+```
+OR
+(
+AND
+(
+NOT(ISBLANK( Date_Time_Job_Sheet_was_Sent__c )) ,
+(
+OR
+(
+Number_of_After_Check_ins__c = 0 ,
+ISBLANK(Number_of_After_Check_ins__c)
+)
+),
+Stop_Sending_Auto_Emails__c = FALSE
+)
+)
+```
+
+Before developing these workflow rules, our staff had to manually distribute these reminders. The workflow rules have dramatically improved our accounts payable and accounts receivable processes.
