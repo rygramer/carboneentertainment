@@ -2,7 +2,7 @@
 
 In order to streamline the business operation, I created a custom Salesforce application to manage the sales and fulfillment processes from end-to-end. The platform centralizes the talent database, contract management system, and customer engagement platform.
 
-This case study will describe how we implemented the custom Salesforce application to improve our business by outlining the **data structure**, **contracting solution**, and **problems solves by the application**.
+This case study will describe how we implemented the custom Salesforce application to improve our business by outlining the **data structure**, **contracting solution**, and **problems solved by the application**.
 
 ## Table of Contents
 
