@@ -2,28 +2,29 @@
 
 In order to streamline the business operation, I created a custom Salesforce application to manage the sales and fulfillment processes from end-to-end. The platform centralizes the talent database, contract management system, and customer engagement platform.
 
-This case study will describe how we implemented the custom Salesforce application to improve our business by outlining the:
+This case study will describe how we implemented the custom Salesforce application to improve our business by outlining the **data structure**, **contracting solution**, and **problems solves by the application**.
 
-1. [Data Structure](#data-structure)
-  * [Objects](#objects)
-  * [Schema](#schema)
-2. [Contracting Solution](#contracting-solution)
-  * [Contract PDF](#contract-pdf)
-  * [Emailing the Contract](#emailing-the-contract)
-  * [Email Template](#email-template)
-  * [Signing the Contract](#signing-the-contract)
-  * [Force.com Portal](#forcecom-portal)
-  * [Additional Considerations for Subcontracts (or “Job Sheets”)](#additional-considerations-for-subcontracts--or--job-sheets--)
-3. [Problems Solved by the Application](#problems-solved-by-the-application)
-  * [Insurance](#insurance)
-  * [Parking](#parking)
+## Table of Contents
+
+1. ### [Data Structure](#data-structure)
+  * #### [Objects](#objects)
+  * #### [Schema](#schema)
+2. ### [Contracting Solution](#contracting-solution)
+  * #### [Contract PDF](#contract-pdf)
+  * #### [Emailing the Contract](#emailing-the-contract)
+  * #### [Email Template](#email-template)
+  * #### [Signing the Contract](#signing-the-contract)
+  * #### [Force.com Portal](#forcecom-portal)
+  * #### [Additional Considerations for Subcontracts (or “Job Sheets”)](#additional-considerations-for-subcontracts--or--job-sheets--)
+3. ### [Problems Solved by the Application](#problems-solved-by-the-application)
+  * #### [Insurance](#insurance)
+  * #### [Parking](#parking)
 
 ## Data Structure
 
 ### Objects
 
 > “... [O]bjects represent database tables that contain your organization's information.”
-> *-- Salesforce [documentation](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_concepts.htm)*
 
 In addition to using the Account and Contact standard objects, we have created the following custom objects:
 
@@ -878,6 +879,6 @@ Here is the Visualforce Page:
 
 Here is the live SpotHero link based on the event created for this case study:
 
-[Purchase Parking on SpotHero »](https://spothero.com/search?latitude=38.8813404&longitude=-77.0280614&search_string=1100%20Maine%20Ave%20SW%20Washington%20DC%2020024)
+> [Purchase Parking on SpotHero »](https://spothero.com/search?latitude=38.8813404&longitude=-77.0280614&search_string=1100%20Maine%20Ave%20SW%20Washington%20DC%2020024)
 
 *Please Note: any link examples to SpotHero will expire on or around 9/1/2020.*
