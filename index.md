@@ -1,3 +1,5 @@
+<img src="/carboneentertainment/assets/img/carbone-og.jpg" style="display:none;">
+
 [Carbone Entertainment](https://carboneentertainment.com/) is a talent agency that specializes in pairing you with the perfect artist, performer, and activity for your event. As a simple example, let’s say you are hosting your child’s birthday party and would like to hire the most amazing [Balloon Artist](https://carboneentertainment.com/service/balloon-twisters/), Carbone connects you with that artist and handles the contracting, logistical coordination, and billing. Things get more complicated when the scale of the event increases to include many performers, a complicated venue, or an entire performance series across multiple days or months.
 
 In order to streamline the business operation, I created a custom Salesforce application to manage the sales and fulfillment processes from end-to-end. The platform centralizes the talent database, contract management system, and customer engagement platform.
